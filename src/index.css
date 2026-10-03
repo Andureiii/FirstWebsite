@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
+/* Lets us turn dark mode on with a "dark" class instead of only the computer's setting. */
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* Custom colors. Tailwind turns each one into classes like bg-panel and text-muted. */
 @theme {
   --color-ink: #12141a;
   --color-panel: #1c1f28;
