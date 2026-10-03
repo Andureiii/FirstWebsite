@@ -3,6 +3,13 @@ import { useState, useEffect } from "react";
 // Adds a leading zero: 5 -> "05"
 const pad = (n) => String(n).padStart(2, "0");
 
+// Tailwind classes that are reused in more than one place
+const panel = "w-full max-w-[380px] rounded-2xl border-2 border-edge bg-panel px-5 py-7";
+const heading = "mb-4 text-[1.1rem] font-bold text-muted";
+const display = "font-mono text-[2.6rem] font-bold tracking-[2px] tabular-nums";
+const btn =
+  "cursor-pointer rounded-[10px] px-[18px] py-2.5 font-semibold text-ink disabled:cursor-not-allowed disabled:opacity-40";
+
 function Clock() {
   const [now, setNow] = useState(new Date());
 
@@ -15,12 +22,12 @@ function Clock() {
   }, []);
 
   return (
-    <section className="panel">
-      <h2>Digital Clock</h2>
-      <div className="display">
+    <section className={panel}>
+      <h2 className={heading}>Digital Clock</h2>
+      <div className={display}>
         {pad(now.getHours())}:{pad(now.getMinutes())}:{pad(now.getSeconds())}
       </div>
-      <p className="date">{now.toDateString()}</p>
+      <p className="mt-3 text-muted">{now.toDateString()}</p>
     </section>
   );
 }
@@ -51,19 +58,19 @@ function Stopwatch() {
   }
 
   return (
-    <section className="panel">
-      <h2>Stopwatch</h2>
-      <div className="display">
+    <section className={panel}>
+      <h2 className={heading}>Stopwatch</h2>
+      <div className={display}>
         {pad(minutes)}:{pad(seconds)}.{pad(centis)}
       </div>
-      <div className="buttons">
-        <button className="start" onClick={() => setRunning(true)} disabled={running}>
+      <div className="mt-5 flex justify-center gap-2.5">
+        <button className={`${btn} bg-go`} onClick={() => setRunning(true)} disabled={running}>
           Start
         </button>
-        <button className="stop" onClick={() => setRunning(false)} disabled={!running}>
+        <button className={`${btn} bg-stop`} onClick={() => setRunning(false)} disabled={!running}>
           Stop
         </button>
-        <button className="reset" onClick={reset}>
+        <button className={`${btn} bg-accent`} onClick={reset}>
           Reset
         </button>
       </div>
@@ -73,9 +80,9 @@ function Stopwatch() {
 
 export default function App() {
   return (
-    <div className="page">
-      <h1>Clock + Stopwatch</h1>
-      <div className="grid">
+    <div className="min-h-screen bg-ink px-5 py-8 text-center text-fg">
+      <h1 className="mb-7 text-[2rem] font-bold text-accent">Clock + Stopwatch</h1>
+      <div className="flex flex-wrap justify-center gap-6">
         <Clock />
         <Stopwatch />
       </div>
